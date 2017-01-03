@@ -22,21 +22,22 @@ class Vector(object):
     def __eq__(self, v):
         return self.coordinates == v.coordinates
 
-    def add(self,newIterable):
+    def add(self,newVector):
 	
 	#using a list comprehension and zip to sum up two list objects which are the coordinates of the orginal and new vector
 	#to do should check to see if lengths are the same first
-	newSum = [(x+y) for x,y in zip(self.coordinates,newIterable.coordinates)]
+	newSum = [(x+y) for x,y in zip(self.coordinates,newVector.coordinates)]
 	#Convert list to a Vector object	
 	newVector = Vector(newSum)
 	#print (newVector)
+	#newVector = float("{0:.3f}".format(newVector))
 	return newVector
 
-    def subtract(self,newIterable):
+    def subtract(self,newVector):
 	
 	#using a list comprehension and zip to subract two list objects which are the coordinates of the orginal and new vector
 	#to do should check to see if lengths are the same first
-	newSum = [(x-y) for x,y in zip(self.coordinates,newIterable.coordinates)]
+	newSum = [(x-y) for x,y in zip(self.coordinates,newVector.coordinates)]
 	#Convert list to a Vector object	
 	newVector = Vector(newSum)
 	#print (newVector)
@@ -81,19 +82,20 @@ class Vector(object):
 	#print (newVector)
 	return newVector
 
-    def dot_product(self,newIterable):
+    def dot_product(self,newVector):
 	
 	#using a list comprehension and zip to multiply two list objects which are the coordinates of the orginal and new vector
 	#to do should check to see if lengths are the same first
-	listProduct = [(x*y) for x,y in zip(self.coordinates,newIterable.coordinates)]
+	listProduct = [(x*y) for x,y in zip(self.coordinates,newVector.coordinates)]
 	#This reduces via suming each item of the list
 	dot_product= reduce(lambda x,y: x + y, listProduct)
+	dot_product = float("{0:.3f}".format(dot_product))
 	print (dot_product)
 	return dot_product
 
-    def find_angle(self,newIterable,degrees=False):
+    def find_angle(self,newVector,degrees=False):
 	n1 = self.normalized()
-	n2 = newIterable.normalized()
+	n2 = newVector.normalized()
 	#compute angle between two vectors is a formula: Angle of vectors = arcos(v dot w/||V|| x ||W||) in radians
 	angle_in_radians = math.acos(n1.dot_product(n2))
 	if degrees == True:
@@ -102,15 +104,31 @@ class Vector(object):
 	else:
 	    angle=angle_in_radians
 
-	
 	#angle = round(math.acos(dotProd/(magOne *magTwo)),3)
 
 	#using a list comprehension and zip to multiply two list objects which are the coordinates of the orginal and new vector
 	#to do should check to see if lengths are the same first
-	#listProduct = [round(x*y,3) for x,y in zip(self.coordinates,newIterable.coordinates)]
+	#listProduct = [round(x*y,3) for x,y in zip(self.coordinates,newVector.coordinates)]
 	#This reduces via suming each item of the list
 	#dot_product= reduce(lambda x,y: x + y, listProduct)
 	print (angle)
+	angle = float("{0:.3f}".format(angle))
+	print ((angle))
 	#return dot_product	
 	return angle
-
+    
+    def is_parallel(self,newVector):
+	#using a list comprehension and zip to find modulo two list objects which are the coordinates of the orginal and new vector
+	#to do should check to see if lengths are the same first
+        #If modulo is zero, then they are multiples of one other which means they are parallel
+	listModulo = [(x % y) for x,y in zip(self.coordinates,newVector.coordinates)]
+	#This reduces via suming each item of the list
+	moduloSum= reduce(lambda x,y: x + y, listModulo)
+	moduloSum = float("{0:.3f}".format(moduloSum))
+	print (moduloSum)
+	return moduloSum
+        
+    
+    def is_orthogonal(self,newVector):
+        print(True)
+ 	
