@@ -123,7 +123,7 @@ class Vector(object):
         
     def is_orthogonal(self,newVector):
         result = (self.dot_product(newVector)==0)
-        #print('Orthogonal:'+str(result))
+        print('Orthogonal:'+str(result))
         return (result)
 
     def component_parallel_to(self,baseVector):

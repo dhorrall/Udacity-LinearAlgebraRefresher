@@ -1,5 +1,6 @@
 from vector import Vector
 from line import Line
+from plane import Plane
 #test modification
 def main():
     '''    
@@ -50,29 +51,31 @@ def main():
     x.area_parallelogram_with(y)
     x.area_triangle_with(y)
     '''
-    v1a = Vector([4.046,2.836])
-    v1b = Vector([10.115,7.09])
-    line1a = Line(v1a,1.21)
-    line1b = Line(v1b,3.025)
-    print ('Pair 1 Is Parallel '+str(line1a.is_parallel(line1b)))
-    print ('Pair 1 Is Same Line ' + str(line1a==line1b))
-    print(line1a.find_intersection(line1b))
+    v1a = Vector([-0.412,3.806,.728])
+    v1b = Vector([1.03,-9.515,-1.82])
+    plane1a = Plane(v1a,-3.46)
+    plane1b = Plane(v1b,8.65)
+    print ('Plane Pair 1 Is Parallel '+str(plane1a.is_parallel(plane1b)))
+    print ('Plane Pair 1 Is Same Plane ' + str(plane1a==plane1b))
+    #print(line1a.find_intersection(plane1b))
 
-    v2a = Vector([7.204,3.182])
-    v2b = Vector([8.172,4.114])
-    line2a = Line(v2a,8.68)
-    line2b = Line(v2b,9.883)
-    print ('Pair 2 Is Parallel '+str(line2a.is_parallel(line2b)))
-    print ('Pair 2 Is Same Line ' + str(line2a==line2b))
-    print(line2a.find_intersection(line2b))
+    v2a = Vector([2.611,5.528,.283])
+    v2b = Vector([7.715,8.306,5.342])
+    plane2a = Plane(v2a,4.6)
+    plane2b = Plane(v2b,3.76)
+    print ('Plane Pair 2 Is Parallel '+str(plane2a.is_parallel(plane2b)))
+    print ('Plane Pair 2 Is Same Plane ' + str(plane2a==plane2b))
+    #print(line1a.find_intersection(plane1b))
 
-    v3a = Vector([1.182,5.562])
-    v3b = Vector([1.773,8.343])
-    line3a = Line(v3a,6.744)
-    line3b = Line(v3b,9.525)
-    print ('Pair 3 Is Parallel '+str(line3a.is_parallel(line3b)))
-    print ('Pair 3 Is Same Line ' + str(line3a==line3b))
-    print(line3a.find_intersection(line3b))
+    v3a = Vector([-7.926,8.625,-7.217])
+    v3b = Vector([-2.642,2.875,-2.404])
+    plane3a = Plane(v3a,-7.952)
+    plane3b = Plane(v3b,2.443)
+    print ('Plane Pair 3 Is Parallel '+str(plane3a.is_parallel(plane3b)))
+    print ('Plane Pair 3 Is Same Plane ' + str(plane3a==plane3b))
+    #print(line1a.find_intersection(plane1b))
+
+    
 
 
 

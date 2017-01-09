@@ -64,7 +64,7 @@ def main():
     line2b = Line(v2b,9.883)
     print ('Pair 2 Is Parallel '+str(line2a.is_parallel(line2b)))
     print ('Pair 2 Is Same Line ' + str(line2a==line2b))
-    print(line2a.find_intersection(line2b))
+    #print(line2a.normal_vector.coordinates)
 
     v3a = Vector([1.182,5.562])
     v3b = Vector([1.773,8.343])
@@ -72,7 +72,7 @@ def main():
     line3b = Line(v3b,9.525)
     print ('Pair 3 Is Parallel '+str(line3a.is_parallel(line3b)))
     print ('Pair 3 Is Same Line ' + str(line3a==line3b))
-    print(line3a.find_intersection(line3b))
+    #print(line3a.normal_vector.coordinates)
 
 
 

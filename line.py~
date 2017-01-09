@@ -58,7 +58,7 @@ class Line(object):
             K1=self.constant_term
             K2=aLine.constant_term
             X= (D*K1-B*K2)/(A*D-B*C)
-            Y= -(C*K1-A*K2)/(A*D-B*C)
+            Y= (-C*K1-A*K2)/(A*D-B*C)
             result = 'X= '+str(round(X,3))    ,'Y= ' + str(round(Y,3))
             return result
         elif self == aLine:
