@@ -14,22 +14,22 @@ class Plane(object):
         self.dimension = 3
 
         if not normal_vector:
-            all_zeros = ['0']*self.dimension
+            all_zeros = [0]*self.dimension
             normal_vector = Vector(all_zeros)
         self.normal_vector = normal_vector
 
         if not constant_term:
-            constant_term = Decimal('0')
+            constant_term = Decimal(0)
         self.constant_term = Decimal(constant_term)
 
         self.set_basepoint()
-
+        print('test-plane_init',self.normal_vector)    
 
     def set_basepoint(self):
         try:
             n = self.normal_vector
             c = self.constant_term
-            basepoint_coords = ['0']*self.dimension
+            basepoint_coords = [0]*self.dimension
 
             initial_index = Plane.first_nonzero_index(n)
             initial_coefficient = n[initial_index]
@@ -40,9 +40,10 @@ class Plane(object):
         except Exception as e:
             if str(e) == Plane.NO_NONZERO_ELTS_FOUND_MSG:
                 self.basepoint = None
+                print('plane basepoint',self.basepoint)
             else:
                 raise e
-
+        
     def find_intersection(self,aLine):
         
         if not self.is_parallel(aLine):
@@ -77,14 +78,14 @@ class Plane(object):
         #compute vector connecting the lines base points
         x0 = self.basepoint
         y0 = aPlane.basepoint
-        #print (type(x0),type(y0))
+        print ('test plane =',type(x0),type(y0))
         basepoint_diff = x0.subtract(y0)
         n = self.normal_vector
         #print(n)
         #if connecting vector is orthogonal then lines are equal
         return basepoint_diff.is_orthogonal(n)
     
-    def __str__(self):
+    def __repr__(self):
 
         num_decimal_places = 3
         
@@ -110,7 +111,7 @@ class Plane(object):
             return output
 
         n = self.normal_vector
-        print (type(n))
+        #print (type(n))
         try:
             
             initial_index = Plane.first_nonzero_index(n)

@@ -88,7 +88,7 @@ class Line(object):
         #if connecting vector is orthogonal then lines are equal
         return basepoint_diff.is_orthogonal(n)
 
-    def __str__(self):
+    def __repr__(self):
 
         num_decimal_places = 3
 

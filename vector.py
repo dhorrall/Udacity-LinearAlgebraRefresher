@@ -19,7 +19,7 @@ class Vector(object):
             raise TypeError('The coordinates must be an iterable')
 
 
-    def __str__(self):
+    def __repr__(self):
         return 'Vector: {0}'.format(self.coordinates)
 
 
@@ -77,7 +77,7 @@ class Vector(object):
 	#using a list comprehension to multiply a list by a scalar value and returns new vector
 	#to do should check to see if lengths are the same first
 	#
-	    newSum = [(x * multiplier) for x in self.coordinates]
+	    newSum = [(Decimal(x) * Decimal(multiplier)) for x in self.coordinates]
 	#Convert list to a Vector object	
 	    newVector = Vector(newSum)
 	#print (newVector)

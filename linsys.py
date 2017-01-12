@@ -36,13 +36,26 @@ class LinearSystem(object):
 
     def multiply_coefficient_and_row(self, coefficient, row):
         x = self[row]
-        print(x[0])
-        return (True)
+        newVector = x.normal_vector.scalar_multiply(coefficient)
+        newPlane = Plane(normal_vector=newVector, constant_term=x.constant_term*coefficient)
+        self[row]=newPlane
+        #print(type(x),(x.normal_vector.coordinates),(x.constant_term),coefficient,newVector.coordinates,type(newPlane))
+        print (self)        
+        return (self)
         
 
 
     def add_multiple_times_row_to_row(self, coefficient, row_to_add, row_to_be_added_to):
-        pass # add your code here
+        rowToAddVectorMultiple = self[row_to_add].normal_vector.scalar_multiply(coefficient)
+        rowToAddToVector = self[row_to_be_added_to].normal_vector
+        rowToAddToVectorFinal = rowToAddToVector.add(rowToAddVectorMultiple)
+        k1= self[row_to_add].constant_term * coefficient
+        k2 = self[row_to_be_added_to].constant_term
+        kFinal = k1+k2        
+        newPlane = Plane(normal_vector=rowToAddToVectorFinal, constant_term=kFinal)
+        self[row_to_be_added_to]=newPlane
+        print((self))
+        return (self)
 
 
     def indices_of_first_nonzero_terms_in_each_row(self):
@@ -61,7 +74,62 @@ class LinearSystem(object):
                     raise e
 
         return indices
+    
+    def compute_triangular_form(self):
+        system = deepcopy(self)
+        #get number of equations in the system
+        numEquations=len(self)
+        #get number of variables in each plane
+        numVariables= system.dimension
+        #set counter for variable coefficents in each equation
+        j=0
+        #c= coefficnet of the var j in the row it
+        #proceed downward from each equation in system one at a time
+        #in most cases we will want to 'clear' var j below row i and then increment j to move on to next variable
+        #however if c = zero, we need to swap with an appropriate row
+        #if theres a row under row i with a nonzero coeff for var j, then swap that row with row i
+        #clear all terms with var j below row i
+        for i in range(numEquations):
+            while j <numVariables:
+                c= MyDecimal(system[i].normal_vector[j])
+                if c.is_near_zero():
+                    swap_succeeded = system.swap_with_row_below_for_nonzero_coefficient_if_able(i,j)
+                    if not swap_succeeded:
+                        j+=1
+                        continue
+                system.clear_coefficients_below(i,j)
+                j+=1
+                break
+        
+        return system
 
+    def swap_with_row_below_for_nonzero_coefficient_if_able(self,row,col):
+        num_equations = len(self)
+        for k in range(row+1,num_equations):
+            coefficient = MyDecimal(self[k].normal_vector[col])
+            print('if_able',coefficient)
+            if not coefficient.is_near_zero():
+                self.swap_rows(row,k)
+                print ('test linsys =',(row),(k))
+                return True
+        
+        return False
+
+    def clear_coefficients_below(self,row,col):
+        #Get number of equations in system
+        num_equations = len(self)
+        #get the coefficient at the row location and column location
+        beta = MyDecimal(self[row].normal_vector[col])
+        #Loop through each row in the system starting with the row following the current row        
+        for k in range(row+1,num_equations):
+            #get the coefficients of the next row
+            n=self[k].normal_vector
+            #get a particular column for the next row
+            gamma = n[col]
+            #calculate alpha which is the inverse needed to multiply by the coefficient to clear it    
+            alpha = -gamma/beta
+            print('clear',beta,gamma,alpha)
+            self.add_multiple_times_row_to_row(alpha,row,k)
 
     def __len__(self):
         return len(self.planes)
@@ -80,7 +148,7 @@ class LinearSystem(object):
             raise Exception(self.ALL_PLANES_MUST_BE_IN_SAME_DIM_MSG)
 
 
-    def __str__(self):
+    def __repr__(self):
         ret = 'Linear System:\n'
         temp = ['Equation {}: {}'.format(i+1,p) for i,p in enumerate(self.planes)]
         ret += '\n'.join(temp)
