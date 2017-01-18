@@ -23,7 +23,7 @@ class Plane(object):
         self.constant_term = Decimal(constant_term)
 
         self.set_basepoint()
-        print('test-plane_init',self.normal_vector)    
+        #print('test-plane_init',self.normal_vector)    
 
     def set_basepoint(self):
         try:
@@ -40,7 +40,7 @@ class Plane(object):
         except Exception as e:
             if str(e) == Plane.NO_NONZERO_ELTS_FOUND_MSG:
                 self.basepoint = None
-                print('plane basepoint',self.basepoint)
+                #print('plane basepoint',self.basepoint)
             else:
                 raise e
         
@@ -78,12 +78,16 @@ class Plane(object):
         #compute vector connecting the lines base points
         x0 = self.basepoint
         y0 = aPlane.basepoint
-        print ('test plane =',type(x0),type(y0))
+        #print ('test plane =',type(x0),type(y0))
+        #if not x0 == None:
         basepoint_diff = x0.subtract(y0)
         n = self.normal_vector
+        return basepoint_diff.is_orthogonal(n)
+        #else:
+        #    return Plane.NO_NONZERO_ELTS_FOUND_MSG    
         #print(n)
         #if connecting vector is orthogonal then lines are equal
-        return basepoint_diff.is_orthogonal(n)
+        
     
     def __repr__(self):
 

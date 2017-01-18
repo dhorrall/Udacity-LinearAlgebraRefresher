@@ -107,10 +107,10 @@ class LinearSystem(object):
         num_equations = len(self)
         for k in range(row+1,num_equations):
             coefficient = MyDecimal(self[k].normal_vector[col])
-            print('if_able',coefficient)
+            #print('if_able',coefficient)
             if not coefficient.is_near_zero():
                 self.swap_rows(row,k)
-                print ('test linsys =',(row),(k))
+                #print ('test linsys =',(row),(k))
                 return True
         
         return False
@@ -128,7 +128,7 @@ class LinearSystem(object):
             gamma = n[col]
             #calculate alpha which is the inverse needed to multiply by the coefficient to clear it    
             alpha = -gamma/beta
-            print('clear',beta,gamma,alpha)
+            #print('clear',beta,gamma,alpha)
             self.add_multiple_times_row_to_row(alpha,row,k)
 
     def __len__(self):
